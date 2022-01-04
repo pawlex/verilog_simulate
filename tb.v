@@ -18,8 +18,25 @@ module tb();
     initial begin
         $dumpfile ("dump.vcd"); 
         $dumpvars(); 
-    end 
+    end
 
+	/* SOME EXAMPLES */
+	initial begin
+		repeat(4) @(posedge clk);
+		reset <= 0;
+	end
+
+	
+	integer my_address = 0;
+	initial begin
+		repeat(4) @(posedge clk);
+		wait(wait_req == 0)
+		repeat(100) @(posedge clk)
+		while (my_address < 'h100) @(posedge clk) begin
+			@(posedge clk);
+		end
+		#10000 $finish;
+	end
 
     top
 	dut
