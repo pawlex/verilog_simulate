@@ -7,12 +7,15 @@ IVERILOG='iverilog'
 SIMFLAGS='-DSIMULATION'
 SIMOUTFL='out.vvp'
 WAVEFILE='dump.vcd'
+## TODO:  Find a better way to do this.  
+LIBPATH=`pwd`
+OPTS="-g2005-sv -y$LIBPATH"
 
 # Grab the PID of GTKWAVE (if exists)
 GTKWAVEPID=`ps a | grep gtkwave | grep -v "grep" | awk '{print $1}'`
 
 # Compile the design simulation.
-if ! ${IVERILOG} $SIMFLAGS -o $SIMOUTFL ${SIMFILES[@]}; then
+if ! ${IVERILOG} $SIMFLAGS ${OPTS} -o $SIMOUTFL ${SIMFILES[@]}; then
     echo "**** Simulation failed ****"
     exit
 fi
